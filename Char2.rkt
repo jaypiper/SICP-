@@ -45,3 +45,16 @@
   (cond ((null? x) x)
         ((not (pair? x)) (list x))
         ((append (fringe (car x)) (fringe (cdr x))))))
+
+;2.30
+(define (square-tree1 x)
+  (cond ((null? x) x)
+        ((pair? x) (cons (square-tree1 (car x)) (square-tree1 (cdr x))))
+        ((square x))))
+
+(define (square-tree2 x)
+  (map (lambda(x)
+         (if (pair? x)
+             (square-tree2 x)
+             (square x))) x))
+                   
