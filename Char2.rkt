@@ -57,4 +57,22 @@
          (if (pair? x)
              (square-tree2 x)
              (square x))) x))
+
+;2.31 因为之前定义过tree-map了所以改成了new-tree-map
+(define (new-tree-map proc tree)
+  (map (lambda(x)
+         (if (pair? x)
+             (new-tree-map proc x)
+             (proc x))) tree))
+(define (square-tree tree)
+  (new-tree-map square tree))
+
+;2.32  把(car s）也定义一下就不用每次都调用了
+(define (subsets s)
+  (if (null? s)
+      (list s)
+      (let ((rest (subsets (cdr s))))
+      (append rest
+              (map (lambda (x) (cons (car s) x)) rest)))))
+
                    
