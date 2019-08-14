@@ -39,3 +39,9 @@
   (if (not(pair? x))
       x
       (append (deep-reverse (cdr x)) (list (deep-reverse (car x))))))
+
+;2.28 原来cond的else部分也要加括号QAQ
+(define (fringe x)
+  (cond ((null? x) x)
+        ((not (pair? x)) (list x))
+        ((append (fringe (car x)) (fringe (cdr x))))))
