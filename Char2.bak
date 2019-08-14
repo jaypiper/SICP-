@@ -21,15 +21,3 @@
          (+
           (cc amount (except-first-denomination coin-values))
           (cc (- amount (first-denomination coin-values)) coin-values)))))
-
-;2.21
-(define (square x)
-  (* x x))
-
-(define (square-list1 items)
-  (if (null? items)
-      nil
-      (cons (square (car items)) (square-list2(cdr items)))))
-
-(define (square-list2 items)
-  (map square items))
