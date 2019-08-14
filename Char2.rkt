@@ -33,3 +33,9 @@
 
 (define (square-list2 items)
   (map square items))
+
+;2.27
+(define (deep-reverse x)
+  (if (not(pair? x))
+      x
+      (append (deep-reverse (cdr x)) (list (deep-reverse (car x))))))
