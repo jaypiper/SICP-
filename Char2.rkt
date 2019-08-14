@@ -4,3 +4,20 @@
   (if (not (null? x))
       (append (reverse(cdr x)) (list(car x)))
       x))
+
+; 2.19
+(define (cc amount coin-values)
+  ;定义了三个过程,scheme里面0和1不对应true和false，需要用#t和#f
+  (define (no-more? coin-values)
+    (null? coin-values))
+  (define (except-first-denomination coin-values)
+    (cdr coin-values))
+  (define (first-denomination coin-values)
+    (car coin-values))
+   ;原题过程
+  (cond ((= amount 0) 1)
+        ((or (< amount 0) (no-more? coin-values)) 0)
+        (else
+         (+
+          (cc amount (except-first-denomination coin-values))
+          (cc (- amount (first-denomination coin-values)) coin-values)))))
