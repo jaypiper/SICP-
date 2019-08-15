@@ -118,3 +118,4 @@
   (fold-left (lambda (x y) (append (list y) x)) nil sequence))
 (define (reverse2 sequence)
   (fold-right (lambda (x y) (append y (list x))) nil sequence))
+;2.40
