@@ -112,3 +112,9 @@
 
 (define fold-right accumulate)
 ;(/ 1 (/ 2 (/ 3 1)))
+
+;2.39
+(define (reverse1 sequence)
+  (fold-left (lambda (x y) (append (list y) x)) nil sequence))
+(define (reverse2 sequence)
+  (fold-right (lambda (x y) (append y (list x))) nil sequence))
