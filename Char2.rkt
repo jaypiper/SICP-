@@ -99,3 +99,16 @@
              nil
              (cons (accumulate op init (map car seqs))
                    (accumulate-n op init (map cdr seqs)))))
+
+;2.38
+(define (fold-left op initial sequence)
+  (define (iter result rest)
+    (if (null? rest)
+        result
+        (iter (op result (car rest))
+              (cdr rest))))
+  (iter initial sequence))
+;(/ 1 (/(/ 1) 2) 3) 
+
+(define fold-right accumulate)
+;(/ 1 (/ 2 (/ 3 1)))
