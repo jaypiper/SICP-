@@ -75,4 +75,27 @@
       (append rest
               (map (lambda (x) (cons (car s) x)) rest)))))
 
-                   
+;2.33
+(define (map1 p sequence)
+  (if (null? sequence)
+      sequence
+      (cons (p (car sequence)) (map1 p (cdr sequence)))))
+
+(define (append1 seq1 seq2)
+  (accumulate cons seq2 seq1))
+
+(define (length sequence)
+  (accumulate (lambda (x y) (+ y 1)) 0 sequence))
+
+;2.34
+(define (horner-eval x coefficient-sequence)
+  (accumulate (lambda (this-coeff higher-term) (+ (* this-coeff x) higher-term))
+              0
+              coefficient-sequence))
+
+;2.36
+(define (accumulate-n op init seqs)
+  (if (null? (car seqs))
+             nil
+             (cons (accumulate op init (map car seqs))
+                   (accumulate-n op init (map cdr seqs)))))
