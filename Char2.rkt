@@ -118,4 +118,31 @@
   (fold-left (lambda (x y) (append (list y) x)) nil sequence))
 (define (reverse2 sequence)
   (fold-right (lambda (x y) (append y (list x))) nil sequence))
-;2.40
+
+
+;2.56
+(define (exponentiation? exp)
+  (and (pair? exp) (eq? (car exp) '^)))
+(define (base x) (cadr x))
+(define (exponent x) (caddr x))
+(define (make-exponentiation base exp)
+  (cond ((=number? base 0) 0)
+        ((=number? exp 0) 1)
+        ((and (number? base) (number? exp)) (* base (make-exponentiation base (- exp 1))))
+        (else (list '^ base exp))))
+
+(define (deriv exp var)
+  (cond ((number? exp) 0)
+        ((variable? exp)
+         (if (same-variable exp var) 1 0 ))
+        ((sum? exp)
+         (make-sum (deriv (addend exp) var) (deriv (augend exp) var)))
+        ((product? exp)
+         (make-sum (make-product (multiplier exp) (deriv (multiplicand exp) var))
+                   (make-product (deriv (multiplier exp) var) (multiplicand exp))))
+        ((exponentiation? exp)
+         (if (=number? (exponent exp) 0)
+             0
+             (make-product (exponent exp) (make-exponentiation (base exp) (- (exponent exp) 1)))))
+        (else
+         (error "unknown expression type -- DERIV" exp))))
